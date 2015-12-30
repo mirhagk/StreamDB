@@ -8,9 +8,17 @@ namespace StreamDB
 {
     public class Database
     {
-        public void SaveChanges()
+        public Database(IDatabaseConnection connection)
+        {
+            Connection = connection;
+        }
+        public void QueueUpdate<T>(T item)
         {
 
+        }
+        private IDatabaseConnection Connection { get; }
+        public void SaveChanges()
+        {
         }
     }
 }

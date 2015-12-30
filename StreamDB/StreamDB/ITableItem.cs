@@ -10,11 +10,17 @@ namespace StreamDB
     public class Table<T>: IEnumerable<T> where T : ITableItem
     {
         List<T> contents { get; set; } = new List<T>();
+        Database db { get; set; }
+        public void Initialize(Database db)
+        {
+            this.db = db;
+        }
         public void Add(T item)
         {
             contents.Add(item);
             item.RowVersion = 1;
             item.RowGuid = Guid.NewGuid();
+            db.QueueUpdate(item);
         }
         public void Update(T item) { }
         public void Remove(T item) { }
