@@ -14,5 +14,9 @@ namespace StreamDB
     public class InMemoryDatabaseConnection : IDatabaseConnection
     {
         public Stream Stream { get; }
+        public InMemoryDatabaseConnection()
+        {
+            Stream = new MemoryStream();
+        }
     }
 }

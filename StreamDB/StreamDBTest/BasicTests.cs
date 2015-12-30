@@ -26,5 +26,12 @@ namespace StreamDBTest
             db.SaveChanges();
             Assert.AreEqual(1, db.People.Count());
         }
+        [TestMethod]
+        public void DoesWriteSomethingToStream()
+        {
+            var db = new CustomerDatabase();
+            db.People.Add(new Person() { FirstName = "Bob", LastName = "Smith" });
+            Assert.AreNotEqual(0, (db.Connection.Stream as System.IO.MemoryStream).Length);
+        }
     }
 }

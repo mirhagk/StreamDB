@@ -24,7 +24,7 @@ namespace StreamDB
         {
             if (AutoSync)
             {
-
+                ProtoBuf.Serializer.Serialize(Connection.Stream, item);
             }
             else
             {
