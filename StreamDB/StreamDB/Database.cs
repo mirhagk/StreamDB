@@ -31,7 +31,7 @@ namespace StreamDB
                 throw new NotImplementedException();
             }
         }
-        private IDatabaseConnection Connection { get; }
+        public IDatabaseConnection Connection { get; }
         public void SaveChanges()
         {
         }
