@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace StreamDB
 {
-    public class Class1
+    public class Database
     {
+        public void SaveChanges()
+        {
+
+        }
     }
 }
