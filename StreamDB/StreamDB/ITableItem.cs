@@ -7,14 +7,18 @@ using System.Threading.Tasks;
 
 namespace StreamDB
 {
-    public class Table<T>: IEnumerable<T> where T : ITableItem
+    public class Table
     {
-        List<T> contents { get; set; } = new List<T>();
-        Database db { get; set; }
+        protected Database db { get; set; }
         public void Initialize(Database db)
         {
             this.db = db;
         }
+
+    }
+    public class Table<T>: Table, IEnumerable<T> where T : ITableItem
+    {
+        List<T> contents { get; set; } = new List<T>();
         public void Add(T item)
         {
             contents.Add(item);

@@ -12,6 +12,13 @@ namespace StreamDB
         public Database(IDatabaseConnection connection)
         {
             Connection = connection;
+            foreach(var property in this.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+            {
+                if (!property.PropertyType.IsGenericType || property.PropertyType.GetGenericTypeDefinition() != typeof(Table<>))
+                    continue;
+                var table = property.GetValue(this) as Table;
+                table.Initialize(this);
+            }
         }
         public void QueueUpdate<T>(T item)
         {
