@@ -9,8 +9,13 @@ namespace StreamDB
 {
     public class Table<T>: IEnumerable<T> where T : ITableItem
     {
-        List<T> contents { get; set; }
-        public void Add(T item) { }
+        List<T> contents { get; set; } = new List<T>();
+        public void Add(T item)
+        {
+            contents.Add(item);
+            item.RowVersion = 1;
+            item.RowGuid = Guid.NewGuid();
+        }
         public void Update(T item) { }
         public void Remove(T item) { }
 

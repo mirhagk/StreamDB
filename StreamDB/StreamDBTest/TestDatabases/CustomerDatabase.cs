@@ -23,6 +23,6 @@ namespace StreamDBTest.TestDatabases
     }
     class CustomerDatabase : Database
     {
-        public Table<Person> People { get; set; }
+        public Table<Person> People { get; set; } = new Table<Person>();
     }
 }

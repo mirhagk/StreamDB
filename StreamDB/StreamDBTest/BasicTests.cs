@@ -21,6 +21,8 @@ namespace StreamDBTest
             var db = new CustomerDatabase();
             db.People.Add(new Person() { FirstName = "Bob", LastName = "Smith" });
             Assert.AreEqual(1, db.People.Count());
+            Assert.AreEqual(1, db.People.Single().RowVersion);
+            Assert.AreNotEqual(Guid.Empty, db.People.Single().RowGuid);
             db.SaveChanges();
             Assert.AreEqual(1, db.People.Count());
         }
