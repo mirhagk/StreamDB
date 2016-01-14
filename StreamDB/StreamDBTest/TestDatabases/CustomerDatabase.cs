@@ -25,6 +25,7 @@ namespace StreamDBTest.TestDatabases
     {
         public CustomerDatabase() : base(new InMemoryDatabaseConnection()) { }
         public CustomerDatabase(IDatabaseConnection connection) : base(connection) { }
+        public CustomerDatabase(IDatabaseConnection target, IDatabaseConnection source) : base(target, source) { }
         public Table<Person> People { get; set; } = new Table<Person>();
     }
 }

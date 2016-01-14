@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StreamDBTest.TestDatabases;
 using System.Collections.Generic;
 using System.Linq;
+using StreamDB;
 
 namespace StreamDBTest
 {
@@ -37,8 +38,9 @@ namespace StreamDBTest
         [TestMethod]
         public void SyncronizesStreams()
         {
-            var dbSource = new CustomerDatabase();
-            var dbTarget = new CustomerDatabase();
+            var connection = new InMemoryDatabaseConnection();
+            var dbSource = new CustomerDatabase(connection);
+            var dbTarget = new CustomerDatabase(null, connection);
             //hook up dbTarget to dbSource
             Assert.IsTrue(dbSource.IsSource);
             Assert.IsTrue(dbSource.IsSink);
