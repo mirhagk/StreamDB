@@ -32,15 +32,19 @@ namespace StreamDBTest
         {
             var db = new CustomerDatabase();
             db.People.Add(TestPerson);
-            Assert.AreNotEqual(0, (db.Connection.Stream as System.IO.MemoryStream).Length);
+            Assert.AreNotEqual(0, (db.TargetConnection.Stream as System.IO.MemoryStream).Length);
         }
         [TestMethod]
         public void SyncronizesStreams()
         {
             var dbSource = new CustomerDatabase();
             var dbTarget = new CustomerDatabase();
-            dbSource.People.Add(TestPerson);
             //hook up dbTarget to dbSource
+            Assert.IsTrue(dbSource.IsSource);
+            Assert.IsTrue(dbSource.IsSink);
+
+
+            dbSource.People.Add(TestPerson);
             Assert.AreEqual(1, dbSource.People.Count());
             Assert.AreEqual(1, dbTarget.People.Count());
         }

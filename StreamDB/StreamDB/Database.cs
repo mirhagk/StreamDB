@@ -9,9 +9,10 @@ namespace StreamDB
     public class Database
     {
         public bool AutoSync { get; set; } = true;
-        public Database(IDatabaseConnection connection)
+        public Database(IDatabaseConnection target, IDatabaseConnection source = null)
         {
-            Connection = connection;
+            TargetConnection = target;
+            SourceConnection = source;
             foreach(var property in this.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
             {
                 if (!property.PropertyType.IsGenericType || property.PropertyType.GetGenericTypeDefinition() != typeof(Table<>))
@@ -24,14 +25,17 @@ namespace StreamDB
         {
             if (AutoSync)
             {
-                ProtoBuf.Serializer.Serialize(Connection.Stream, item);
+                ProtoBuf.Serializer.Serialize(TargetConnection.Stream, item);
             }
             else
             {
                 throw new NotImplementedException();
             }
         }
-        public IDatabaseConnection Connection { get; }
+        public IDatabaseConnection TargetConnection { get; }
+        public IDatabaseConnection SourceConnection { get; }
+        public bool IsSink => TargetConnection != null;
+        public bool IsSource => SourceConnection != null;
         public void SaveChanges()
         {
         }
