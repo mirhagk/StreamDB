@@ -11,12 +11,21 @@ namespace StreamDB
     {
         Stream Stream { get; }
     }
+    public class FileStreamDatabaseConnection : IDatabaseConnection
+    {
+        public Stream Stream { get; }
+        public FileStreamDatabaseConnection(string path)
+        {
+            Stream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
+        }
+    }
     public class InMemoryDatabaseConnection : IDatabaseConnection
     {
         public Stream Stream { get; }
+        MemoryStream MemoryStream { get; }
         public InMemoryDatabaseConnection()
         {
-            Stream = new MemoryStream();
+            Stream = MemoryStream = new MemoryStream();
         }
     }
 }

@@ -15,9 +15,9 @@ namespace StreamDBTest.TestDatabases
         public int RowVersion { get; set; }
         [ProtoMember(2)]
         public Guid RowGuid { get; set; }
-        [ProtoMember(3)]
+        [ProtoMember(11)]
         public string FirstName { get; set; }
-        [ProtoMember(4)]
+        [ProtoMember(12)]
         public string LastName { get; set; }
         
     }

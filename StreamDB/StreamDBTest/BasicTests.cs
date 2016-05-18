@@ -27,6 +27,7 @@ namespace StreamDBTest
             Assert.AreNotEqual(Guid.Empty, db.People.Single().RowGuid);
             db.SaveChanges();
             Assert.AreEqual(1, db.People.Count());
+            Assert.AreEqual(TestPerson.FirstName, db.People.Single().FirstName);
         }
         [TestMethod]
         public void DoesWriteSomethingToStream()
@@ -38,12 +39,12 @@ namespace StreamDBTest
         [TestMethod]
         public void SyncronizesStreams()
         {
-            var connection = new InMemoryDatabaseConnection();
-            var dbSource = new CustomerDatabase(connection);
-            var dbTarget = new CustomerDatabase(null, connection);
+            var file = "test.db";
+            var dbSource = new CustomerDatabase(new FileStreamDatabaseConnection(file));
+            var dbTarget = new CustomerDatabase(null, new FileStreamDatabaseConnection(file));
             //hook up dbTarget to dbSource
             Assert.IsTrue(dbSource.IsSource);
-            Assert.IsTrue(dbSource.IsSink);
+            Assert.IsTrue(dbTarget.IsSink);
 
 
             dbSource.People.Add(TestPerson);
